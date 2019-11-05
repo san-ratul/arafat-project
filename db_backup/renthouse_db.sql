@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2019 at 02:32 PM
+-- Generation Time: Nov 05, 2019 at 08:53 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -52,6 +52,30 @@ INSERT INTO `amenities` (`id`, `property_id`, `main_features`, `business_communi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `p_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `name`, `contact`, `description`, `p_id`, `created_at`, `updated_at`) VALUES
+(1, 'SAN Ratul', '01521463853', 'gfdgdgfd', 3, '2019-11-01 10:52:19', '2019-11-01 10:52:19'),
+(2, 'Ratul', '01303002409', 'I want to know more about this property and can the rent be nagotiable', 8, '2019-11-05 13:30:25', '2019-11-05 13:30:25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -70,7 +94,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (6, '2019_10_08_095644_add_admin_to_users_table', 3),
 (7, '2019_10_09_165241_create_amenities_table', 4),
-(8, '2019_10_02_140547_create_properties_table', 5);
+(8, '2019_10_02_140547_create_properties_table', 5),
+(9, '2019_10_31_190317_create_messages_table', 6);
 
 -- --------------------------------------------------------
 
@@ -158,6 +183,13 @@ ALTER TABLE `amenities`
   ADD KEY `amenities_property_id_foreign` (`property_id`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `messages_p_id_foreign` (`p_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -194,10 +226,16 @@ ALTER TABLE `amenities`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `properties`
@@ -220,6 +258,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `amenities`
   ADD CONSTRAINT `amenities_property_id_foreign` FOREIGN KEY (`property_id`) REFERENCES `properties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_p_id_foreign` FOREIGN KEY (`p_id`) REFERENCES `properties` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
